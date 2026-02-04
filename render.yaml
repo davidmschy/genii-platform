@@ -6,7 +6,7 @@ services:
     branch: master
     buildCommand: npm install
     startCommand: npm start
-    plan: standard
+    plan: starter
     envVars:
       - key: NODE_ENV
         value: production
@@ -29,7 +29,7 @@ services:
   
   - type: redis
     name: genii-erp-redis
-    plan: standard
+    plan: starter
     ipAllowList: []
     maxmemoryPolicy: allkeys-lru
 
@@ -37,4 +37,4 @@ databases:
   - name: genii-erp-db
     databaseName: genii_erp
     user: genii_erp_user
-    plan: standard
+    plan: starter
