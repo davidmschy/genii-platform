@@ -37,4 +37,5 @@ databases:
   - name: genii-erp-db
     databaseName: genii_erp
     user: genii_erp_user
-    plan: starter
+    plan: basic
+    postgresMajorVersion: "15"
