@@ -36,6 +36,10 @@ app.use('/api/v1/agents', require('./routes/agents'));
 app.use('/api/v1/businesses', require('./routes/businesses'));
 app.use('/api/v1/projects', require('./routes/projects'));
 app.use('/api/v1/collaboration', require('./routes/collaboration'));
+app.use('/api/v1/users', require('../src/routes/users'));
+
+// Webhook Routes
+app.use('/webhooks/twilio', require('../src/routes/webhooks/twilio'));
 
 // Root endpoint with HATEOAS
 app.get('/', (req, res) => {
