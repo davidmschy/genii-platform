@@ -30,6 +30,7 @@ services:
   - type: redis
     name: genii-erp-redis
     plan: standard
+    ipAllowList: []
     maxmemoryPolicy: allkeys-lru
 
 databases:
