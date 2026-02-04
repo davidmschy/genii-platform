@@ -26,14 +26,14 @@ services:
       - key: JWT_EXPIRES_IN
         value: "24h"
     healthCheckPath: /health
+  
+  - type: redis
+    name: genii-erp-redis
+    plan: standard
+    maxmemoryPolicy: allkeys-lru
 
 databases:
   - name: genii-erp-db
     databaseName: genii_erp
     user: genii_erp_user
     plan: standard
-
-redis:
-  - name: genii-erp-redis
-    plan: standard
-    maxmemoryPolicy: allkeys-lru
