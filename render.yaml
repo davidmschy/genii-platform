@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: genii-erp-api
+    runtime: node
+    repo: https://github.com/davidmschy/genii-platform
+    branch: master
+    buildCommand: npm install
+    startCommand: npm start
+    plan: standard
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: genii-erp-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: genii-erp-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: "24h"
+    healthCheckPath: /health
+
+databases:
+  - name: genii-erp-db
+    databaseName: genii_erp
+    user: genii_erp_user
+    plan: standard
+
+redis:
+  - name: genii-erp-redis
+    plan: standard
+    maxmemoryPolicy: allkeys-lru
