@@ -1,0 +1,29 @@
+# Genii Platform Affiliate Configuration
+# Replace placeholder values with your actual affiliate IDs
+
+[VPS]
+vultr = "https://vultr.com/?ref=YOUR_VULTR_ID"
+digitalocean = "https://m.do.co/c/YOUR_DIGITALOCEAN_CODE"
+linode = "https://linode.com/?r=YOUR_LINODE_CODE"
+railway = "https://railway.app?referralCode=YOUR_RAILWAY_CODE"
+
+[GPUs]
+lambdalabs = "https://lambdalabs.com/?ref=YOUR_LAMBDA_CODE"
+paperspace = "https://paperspace.com/?r=YOUR_PAPERSPACE_CODE"
+
+[LLM]
+kimi = "https://kimi.ai/referral/YOUR_KIMI_CODE"
+anthropic = "https://anthropic.com/?ref=YOUR_ANTHROPIC_CODE"
+openai = "https://openai.com/?ref=YOUR_OPENAI_CODE"
+
+[Tools]
+clickup = "https://clickup.com/?ref=YOUR_CLICKUP_CODE"
+slack = "https://slack.com/?ref=YOUR_SLACK_CODE"
+twilio = "https://twilio.com/?ref=YOUR_TWILIO_CODE"
+mailgun = "https://mailgun.com/?ref=YOUR_MAILGUN_CODE"
+stripe = "https://stripe.com/?ref=YOUR_STRIPE_CODE"
+
+[Domains]
+cloudflare = "https://cloudflare.com/?ref=YOUR_CF_CODE"
+godaddy = "https://godaddy.com/?ref=YOUR_GODADDY_CODE"
+namecheap = "https://namecheap.com/?ref=YOUR_NAMECHEAP_CODE"

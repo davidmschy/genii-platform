@@ -1,0 +1,21 @@
+{
+    "name": "butler",
+    "description": "Handles real-world logistics (Uber, Amazon, Groceries) via browser-automation.",
+    "version": "1.0.0",
+    "capabilities": [
+        "order_uber",
+        "order_amazon",
+        "order_coffee"
+    ],
+    "configSchema": {
+        "type": "object",
+        "properties": {
+            "uber_account": {
+                "type": "string"
+            },
+            "amazon_account": {
+                "type": "string"
+            }
+        }
+    }
+}

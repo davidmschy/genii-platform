@@ -1,0 +1,21 @@
+{
+    "name": "clickup",
+    "description": "Enterprise-grade ClickUp task and space management.",
+    "version": "1.0.0",
+    "capabilities": [
+        "get_tasks",
+        "create_task",
+        "update_task"
+    ],
+    "configSchema": {
+        "type": "object",
+        "properties": {
+            "api_key": {
+                "type": "string"
+            },
+            "default_list_id": {
+                "type": "string"
+            }
+        }
+    }
+}

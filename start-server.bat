@@ -1,0 +1,9 @@
+@echo off
+echo Starting Genii Platform Server...
+cd /d C:\Users\Administrator\genii-platform
+start /b python server.py > server.log 2>&1
+timeout /t 3 /nobreak > nul
+echo Starting Cloudflare Tunnel...
+cloudflared tunnel --url http://localhost:8080 --metrics localhost:45678
+echo Tunnel closed. Restarting in 5 seconds...
+timeout /t 5 /nobreak > nul

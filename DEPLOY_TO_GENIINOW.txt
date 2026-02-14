@@ -1,0 +1,44 @@
+DEPLOY TO GENIINOW.COM
+======================
+
+CURRENT LIVE URL:
+https://litigation-handled-professor-administrator.trycloudflare.com
+
+Option 1: Update GoDaddy DNS (Quickest)
+---------------------------------------
+Login to GoDaddy Dashboard:
+1. Go to https://dcc.godaddy.com/manage/geniinow.com/dns
+2. Add CNAME record:
+   - Type: CNAME
+   - Name: @ (or www)
+   - Value: litigation-handled-professor-administrator.trycloudflare.com
+   - TTL: 600
+3. Save and wait 2-5 minutes
+
+Option 2: Deploy to VPS (104.248.214.4)
+--------------------------------------
+SSH Commands:
+  ssh root@104.248.214.4
+  cd /var/www/html
+  mkdir genii
+  # Upload files via SCP or Git
+  # Install Python3 and run server
+
+Option 3: Use Railway (Recommended)
+-----------------------------------
+  railway login
+  railway init --name genii
+  railway up
+  # Add custom domain in Railway dashboard
+
+CURRENT STATUS
+==============
+? Server: Running on port 8888
+? Tunnel: Active
+? URL: https://litigation-handled-professor-administrator.trycloudflare.com
+? Landing Page: New design with OpenClaw prompt
+? SMS: Twilio integrated
+??  DNS: Needs manual update in GoDaddy
+
+TEST NOW:
+https://litigation-handled-professor-administrator.trycloudflare.com

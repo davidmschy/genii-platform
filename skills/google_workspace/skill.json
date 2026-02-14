@@ -1,0 +1,22 @@
+{
+    "name": "google_workspace",
+    "description": "Unified skill for Google Workspace Sovereignty.",
+    "version": "1.0.0",
+    "capabilities": [
+        "send_chat",
+        "list_events",
+        "manage_mail",
+        "sync_docs"
+    ],
+    "configSchema": {
+        "type": "object",
+        "properties": {
+            "credentials_json": {
+                "type": "string"
+            },
+            "token_pickle": {
+                "type": "string"
+            }
+        }
+    }
+}

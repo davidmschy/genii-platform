@@ -1,0 +1,59 @@
+DNS STATUS UPDATE
+=================
+
+? DNS CONFIGURED:
+www.geniinow.com ? litigation-handled-professor-administrator.trycloudflare.com
+
+??  ISSUE: Cloudflare Tunnel blocks custom domains
+The free tunnel only works with the random subdomain it generates.
+When you visit www.geniinow.com, it returns 403 Forbidden.
+
+SOLUTIONS TO MAKE WWW.GENIINOW.COM WORK:
+========================================
+
+Option 1: Cloudflare Account (Proper Setup)
+-------------------------------------------
+1. Create/login to Cloudflare account
+2. Add geniinow.com to Cloudflare
+3. Create "Named Tunnel" (not quick tunnel)
+4. Configure DNS in Cloudflare dashboard
+5. Install cloudflared with authentication
+
+Benefits:
+- Works with custom domain
+- SSL automatically
+- Permanent URL
+- Better performance
+
+Option 2: Railway (Easiest)
+---------------------------
+1. Deploy to Railway (I can do this)
+2. Add custom domain in Railway dashboard
+3. Point geniinow.com to Railway
+
+Benefits:
+- No tunnel complexity
+- Built-in custom domain support
+- Automatic SSL
+- Easier management
+
+Option 3: VPS Deploy (Best Control)
+-----------------------------------
+Deploy directly to your server (104.248.214.4):
+- Full control over DNS
+- No tunnel needed
+- Best performance
+- Need SSH access
+
+CURRENT STATUS:
+==============
+? DNS: www.geniinow.com configured
+? Site: Working on tunnel URL
+??  Custom domain: Blocked by tunnel
+
+WORKING URL:
+===========
+https://litigation-handled-professor-administrator.trycloudflare.com
+
+The site is LIVE with luxury enterprise design.
+Custom domain needs one of the solutions above.

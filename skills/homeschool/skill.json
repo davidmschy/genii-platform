@@ -1,0 +1,20 @@
+{
+    "name": "homeschool",
+    "description": "Automates curriculum tracking and charter school submissions.",
+    "version": "1.0.0",
+    "capabilities": [
+        "submit_work",
+        "track_curriculum"
+    ],
+    "configSchema": {
+        "type": "object",
+        "properties": {
+            "portal_url": {
+                "type": "string"
+            },
+            "portal_credentials": {
+                "type": "string"
+            }
+        }
+    }
+}

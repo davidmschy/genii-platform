@@ -1,0 +1,209 @@
+<!-- Budget Calculator Component -->
+<section class="budget-calculator" style="padding: 80px 20px; background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
+    <div class="container" style="max-width: 900px; margin: 0 auto;">
+        
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 15px;">Calculate Your Investment</h2>
+        
+        <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 40px;">See exactly what you'll pay now and as you grow. No surprises.</p>
+        
+        <!-- Calculator Form -->
+        <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+            
+            <h3 style="margin-bottom: 30px; color: #667eea;">Step 1: Your Current Situation</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Monthly Revenue</label>
+                    <input type="number" id="currentRevenue" placeholder="10000" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px;" onchange="calculateBudget()">
+                    <span style="font-size: 0.875rem; color: #666;">Your current monthly revenue</span>
+                </div>
+                
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Team Size</label>
+                    <input type="number" id="teamSize" placeholder="3" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px;" onchange="calculateBudget()">
+                    <span style="font-size: 0.875rem; color: #666;">People you currently employ</span>
+                </div>
+                
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Current Tool Spend</label>
+                    <input type="number" id="currentTools" placeholder="500" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px;" onchange="calculateBudget()">
+                    <span style="font-size: 0.875rem; color: #666;">Monthly software costs</span>
+                </div>
+            </div>
+            
+            <h3 style="margin: 40px 0 30px; color: #667eea;">Step 2: Your Growth Goals</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Target Monthly Revenue (Month 12)</label>
+                    <input type="number" id="targetRevenue" placeholder="25000" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px;" onchange="calculateBudget()">
+                    <span style="font-size: 0.875rem; color: #666;">Where you want to be in 12 months</span>
+                </div>
+                
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">AI Agents Needed</label>
+                    <select id="agentCount" style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px;" onchange="calculateBudget()">
+                        <option value="5">5 agents (Starter)</option>
+                        <option value="15" selected>15 agents (Growth)</option>
+                        <option value="25">25 agents (Scale)</option>
+                        <option value="47">47 agents (Full Team)</option>
+                    </select>
+                    <span style="font-size: 0.875rem; color: #666;">How many AI employees</span>
+                </div>
+            </div>
+            
+            <button onclick="calculateBudget()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer;">Calculate My Budget</button>
+        </div>
+        
+        <!-- Results -->
+        <div id="budgetResults" style="margin-top: 40px; display: none;">
+            
+            <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                
+                <h3 style="text-align: center; margin-bottom: 30px; color: #1a1a2e;">Your Personalized Budget Plan</h3>
+                
+                <!-- Current State -->
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+                    <h4 style="margin-bottom: 15px; color: #666;">Current State</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
+                        <div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e;" id="currentRevDisplay">$10K</div>
+                            <div style="font-size: 0.875rem; color: #666;">Monthly Revenue</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #dc3545;" id="currentCostDisplay">$500</div>
+                            <div style="font-size: 0.875rem; color: #666;">Current Tool Spend</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #28a745;" id="currentProfitDisplay">$9.5K</div>
+                            <div style="font-size: 0.875rem; color: #666;">Current Profit</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Growth Phases -->
+                <div id="phaseResults"></div>
+                
+                <!-- Summary -->
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; border-radius: 12px; margin-top: 30px; text-align: center;">
+                    <h4 style="margin-bottom: 20px;">12-Month Projection</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 800;" id="totalInvestment">$15K</div>
+                            <div style="opacity: 0.9;">Total Investment</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 800;" id="totalRevenue">$180K</div>
+                            <div style="opacity: 0.9;">Revenue Generated</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 800; color: #00ff88;" id="totalROI">1,100%</div>
+                            <div style="opacity: 0.9;">ROI</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="#signup" style="display: inline-block; padding: 20px 60px; background: #28a745; color: white; text-decoration: none; border-radius: 50px; font-size: 1.25rem; font-weight: 700;">Start with This Plan ?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function calculateBudget() {
+    const currentRevenue = parseFloat(document.getElementById('currentRevenue').value) || 10000;
+    const teamSize = parseInt(document.getElementById('teamSize').value) || 3;
+    const currentTools = parseFloat(document.getElementById('currentTools').value) || 500;
+    const targetRevenue = parseFloat(document.getElementById('targetRevenue').value) || 25000;
+    const agentCount = parseInt(document.getElementById('agentCount').value) || 15;
+    
+    // Update current state display
+    document.getElementById('currentRevDisplay').textContent = '$' + (currentRevenue / 1000).toFixed(1) + 'K';
+    document.getElementById('currentCostDisplay').textContent = '$' + currentTools.toLocaleString();
+    document.getElementById('currentProfitDisplay').textContent = '$' + ((currentRevenue - currentTools) / 1000).toFixed(1) + 'K';
+    
+    // Calculate phases
+    const phases = [
+        {
+            name: 'Month 1-3: Setup',
+            revenue: currentRevenue * 1.05,
+            agents: Math.min(agentCount, 10),
+            baseFee: agentCount <= 5 ? 49 : 97,
+            outcomeRate: 0.05
+        },
+        {
+            name: 'Month 4-6: Growth',
+            revenue: currentRevenue * 1.25,
+            agents: Math.min(agentCount, 25),
+            baseFee: agentCount <= 15 ? 97 : 197,
+            outcomeRate: 0.04
+        },
+        {
+            name: 'Month 7-12: Scale',
+            revenue: targetRevenue,
+            agents: agentCount,
+            baseFee: agentCount <= 47 ? 197 : 297,
+            outcomeRate: 0.03
+        }
+    ];
+    
+    let phaseHTML = '';
+    let totalInvestment = 0;
+    let totalRevenue = 0;
+    
+    phases.forEach((phase, index) => {
+        const aiRevenue = phase.revenue * 0.3; // AI generates 30%
+        const outcomeFee = aiRevenue * phase.outcomeRate;
+        const apiCost = phase.agents * 20; // $20 per agent for APIs
+        const monthlyCost = phase.baseFee + outcomeFee + apiCost;
+        const months = index === 2 ? 6 : 3; // Last phase is 6 months
+        const phaseInvestment = monthlyCost * months;
+        const phaseRevenue = phase.revenue * months;
+        
+        totalInvestment += phaseInvestment;
+        totalRevenue += phaseRevenue;
+        
+        phaseHTML += `
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                <h4 style="margin-bottom: 15px;">${phase.name}</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <div>
+                        <div style="font-size: 0.875rem; color: #666;">Projected Revenue</div>
+                        <div style="font-weight: 700;">$${(phase.revenue / 1000).toFixed(1)}K/mo</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: #666;">Base Fee</div>
+                        <div style="font-weight: 700;">$${phase.baseFee}/mo</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: #666;">Outcome Fee (${(phase.outcomeRate * 100).toFixed(0)}%)</div>
+                        <div style="font-weight: 700;">$${outcomeFee.toFixed(0)}/mo</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: #666;">API Costs</div>
+                        <div style="font-weight: 700;">$${apiCost}/mo</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: #666;">Total Monthly</div>
+                        <div style="font-weight: 700; color: #667eea;">$${monthlyCost.toFixed(0)}/mo</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    document.getElementById('phaseResults').innerHTML = phaseHTML;
+    
+    // Update summary
+    document.getElementById('totalInvestment').textContent = '$' + (totalInvestment / 1000).toFixed(1) + 'K';
+    document.getElementById('totalRevenue').textContent = '$' + (totalRevenue / 1000).toFixed(0) + 'K';
+    document.getElementById('totalROI').textContent = ((totalRevenue - totalInvestment) / totalInvestment * 100).toFixed(0) + '%';
+    
+    // Show results
+    document.getElementById('budgetResults').style.display = 'block';
+    document.getElementById('budgetResults').scrollIntoView({behavior: 'smooth'});
+}
+</script>

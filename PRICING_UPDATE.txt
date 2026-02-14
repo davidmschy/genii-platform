@@ -1,0 +1,27 @@
+UPDATED PRICING PAGE SECTION
+=============================
+
+REVENUE MODEL FOR LANDING PAGE:
+
+Why We Win When You Win:
+
+Genii makes money three ways:
+1. Monthly SaaS fee (fair, transparent)
+2. Outcome fees (we win when AI generates revenue for you)
+3. Service commissions (we get affiliate fees from tools you need)
+
+This means:
+? No hidden fees
+? We are incentivized to make your AI successful
+? You only pay more when you earn more
+? We recommend the best tools (not most expensive)
+
+Example Customer (Growth Plan):
+Month 3:
+- SaaS: $297
+- AI generated $15K revenue ? 5% outcome fee: $750
+- OpenAI API usage $200 ? Our commission: $30
+- Twilio usage $100 ? Our commission: $10
+- Total you paid: $1,057
+- Total value received: $15K+ revenue + $10K saved labor
+- Your ROI: 1,300%

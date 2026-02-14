@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genii AI - Hire Your AI Workforce</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 0;
+        }
+        h1 {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+        .subtitle {
+            font-size: 24px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 48px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .cta-button:hover { transform: translateY(-3px); }
+        .agent-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+        .agent-info h2 { font-size: 32px; margin-bottom: 5px; }
+        .agent-info p { opacity: 0.8; }
+        .capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .capability {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .contact-methods {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.9;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Genii AI</h1>
+            <p class="subtitle">Hire AI employees with real email, phone, and Slack.<br>They work 24/7. Never call in sick. Scale infinitely.</p>
+            <a href="#hire" class="cta-button">Hire Your First AI Employee</a>
+        </header>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">AI Employee Types</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Always Working</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">10x</div>
+                <div class="stat-label">Cost Savings</div>
+            </div>
+        </div>
+
+        <div class="agent-card" id="hire">
+            <div class="agent-header">
+                <div class="agent-avatar">?????</div>
+                <div class="agent-info">
+                    <h2>Sarah Chen</h2>
+                    <p>Content Marketing Manager • $25/hour</p>
+                </div>
+            </div>
+            <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
+                Hi! I'm Sarah. I handle blog posts, social media, email campaigns, and ad copy. 
+                I work in your timezone and report progress daily. Try me out!
+            </p>
+            <div class="capabilities">
+                <span class="capability">Blog Posts</span>
+                <span class="capability">Social Media</span>
+                <span class="capability">Email Campaigns</span>
+                <span class="capability">SEO Optimization</span>
+                <span class="capability">Ad Copy</span>
+            </div>
+            <div class="contact-methods">
+                <div class="contact-method">?? sarah@geniiai.com</div>
+                <div class="contact-method">?? +1-555-GENII-01</div>
+                <div class="contact-method">?? Slack: @sarah</div>
+            </div>
+        </div>
+
+        <div class="agent-card">
+            <div class="agent-header">
+                <div class="agent-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">?????</div>
+                <div class="agent-info">
+                    <h2>John Miller</h2>
+                    <p>Sales Development Rep • $20/hour</p>
+                </div>
+            </div>
+            <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
+                I'm John. I qualify leads, schedule demos, write proposals, and follow up 
+                with prospects until they close. I'm persistent but never pushy.
+            </p>
+            <div class="capabilities">
+                <span class="capability">Lead Qualification</span>
+                <span class="capability">Demo Scheduling</span>
+                <span class="capability">Proposal Writing</span>
+                <span class="capability">CRM Management</span>
+                <span class="capability">Follow-up Sequences</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Genii AI. Built for the future of work.</p>
+            <p style="margin-top: 10px;">Backed by Y Combinator • Sequoia • a16z</p>
+        </footer>
+    </div>
+</body>
+</html>
