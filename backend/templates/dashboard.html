@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genii ERP Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .btn { transition: all 0.2s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .btn:active { transform: translateY(0); }
+        #loading { display: none; }
+        #loading.active { display: flex; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Loading Overlay -->
+    <div id="loading" class="fixed inset-0 bg-black/50 z-50 items-center justify-center">
+        <div class="text-2xl font-bold">Processing...</div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-600 to-blue-600 p-8">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl font-bold mb-2">????? Genii Enterprise ERP</h1>
+            <p class="text-purple-100 text-lg">AI-Native Workforce Platform</p>
+            <div class="mt-4 flex gap-3">
+                <button onclick="checkHealth()" class="btn bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg">
+                    Check API Health
+                </button>
+                <a href="/docs" target="_blank" class="btn bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg inline-block">
+                    API Docs
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6">
+        <!-- Revenue Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-gray-400 text-sm mb-2">Total Revenue (30d)</h3>
+                <div id="totalRevenue" class="text-3xl font-bold text-green-400">$0.00</div>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-gray-400 text-sm mb-2">Monthly Recurring</h3>
+                <div id="mrr" class="text-3xl font-bold text-blue-400">$0.00</div>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-gray-400 text-sm mb-2">Affiliate Earnings</h3>
+                <div id="affiliate" class="text-3xl font-bold text-purple-400">$0.00</div>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-gray-400 text-sm mb-2">Total Sales</h3>
+                <div id="totalSales" class="text-3xl font-bold text-orange-400">0</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="glass rounded-xl p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button onclick="recordSale()" class="btn bg-green-600 hover:bg-green-700 px-6 py-4 rounded-lg font-semibold">
+                    ?? Record Sale
+                </button>
+                <button onclick="simulateSales()" class="btn bg-blue-600 hover:bg-blue-700 px-6 py-4 rounded-lg font-semibold">
+                    ?? Simulate
+                </button>
+                <button onclick="viewPricing()" class="btn bg-purple-600 hover:bg-purple-700 px-6 py-4 rounded-lg font-semibold">
+                    ??? Pricing
+                </button>
+                <button onclick="viewLeads()" class="btn bg-orange-600 hover:bg-orange-700 px-6 py-4 rounded-lg font-semibold">
+                    ?? Leads
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Display -->
+        <div id="resultContainer" class="glass rounded-xl p-6 mb-8 hidden">
+            <h3 class="text-lg font-bold mb-2">Result</h3>
+            <pre id="result" class="bg-gray-950 p-4 rounded-lg overflow-auto text-sm"></pre>
+            <button onclick="clearResult()" class="mt-2 text-sm text-gray-400 hover:text-white">Clear</button>
+        </div>
+
+        <!-- Sales History -->
+        <div class="glass rounded-xl p-6">
+            <h2 class="text-xl font-bold mb-4">Recent Sales</h2>
+            <div id="salesTable">
+                <p class="text-gray-400">No sales recorded yet. Click "Record Sale" to add one.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = window.location.origin;
+        
+        function showLoading() {
+            document.getElementById('loading').classList.add('active');
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('active');
+        }
+        
+        function showResult(data) {
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            document.getElementById('resultContainer').classList.remove('hidden');
+        }
+        
+        function clearResult() {
+            document.getElementById('resultContainer').classList.add('hidden');
+        }
+        
+        async function fetchData() {
+            try {
+                const revRes = await fetch(`${API_BASE}/revenue/dashboard`);
+                const revData = await revRes.json();
+                
+                document.getElementById('totalRevenue').textContent = '$' + (revData.summary?.total_revenue_30d || 0).toFixed(2);
+                document.getElementById('mrr').textContent = '$' + (revData.summary?.subscription_mrr || 0).toFixed(2);
+                document.getElementById('affiliate').textContent = '$' + (revData.summary?.affiliate_earnings || 0).toFixed(2);
+                
+                const salesRes = await fetch(`${API_BASE}/revenue/sales`);
+                const salesData = await salesRes.json();
+                document.getElementById('totalSales').textContent = salesData.total_sales || 0;
+                
+                // Update sales table
+                if (salesData.sales && salesData.sales.length > 0) {
+                    let tableHTML = `
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-gray-400 border-b border-gray-700">
+                                    <th class="pb-2">ID</th>
+                                    <th class="pb-2">Product</th>
+                                    <th class="pb-2">Amount</th>
+                                    <th class="pb-2">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    salesData.sales.slice(-5).forEach(sale => {
+                        tableHTML += `
+                            <tr class="border-b border-gray-700">
+                                <td class="py-3 font-mono text-sm">${sale.id?.slice(0,8)}...</td>
+                                <td class="py-3">${sale.product}</td>
+                                <td class="py-3 text-green-400">$${sale.amount}</td>
+                                <td class="py-3 text-gray-400">${new Date(sale.timestamp).toLocaleDateString()}</td>
+                            </tr>
+                        `;
+                    });
+                    tableHTML += '</tbody></table>';
+                    document.getElementById('salesTable').innerHTML = tableHTML;
+                }
+            } catch (err) {
+                console.error('Failed to fetch:', err);
+            }
+        }
+        
+        async function recordSale() {
+            showLoading();
+            try {
+                const res = await fetch(`${API_BASE}/revenue/record-sale?product=Genii+Pro&tier=pro&customer_email=demo@example.com&amount=299`, {
+                    method: 'POST'
+                });
+                const data = await res.json();
+                showResult(data);
+                fetchData();
+            } catch (err) {
+                showResult({ error: err.message });
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        async function simulateSales() {
+            showLoading();
+            try {
+                const res = await fetch(`${API_BASE}/revenue/simulate`, { method: 'POST' });
+                const data = await res.json();
+                showResult(data);
+            } catch (err) {
+                showResult({ error: err.message });
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        async function checkHealth() {
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                const data = await res.json();
+                showResult(data);
+            } catch (err) {
+                showResult({ error: 'API not reachable' });
+            }
+        }
+        
+        function viewPricing() {
+            window.open(`${API_BASE}/marketplace/tiers`, '_blank');
+        }
+        
+        function viewLeads() {
+            window.open(`${API_BASE}/sales/leads`, '_blank');
+        }
+        
+        // Load data on page load
+        fetchData();
+        
+        // Refresh every 30 seconds
+        setInterval(fetchData, 30000);
+    </script>
+</body>
+</html>
