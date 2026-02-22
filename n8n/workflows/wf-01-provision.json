@@ -1,0 +1,45 @@
+{
+  "name": "WF-01: Agent Provisioning (<60s)",
+  "nodes": [
+    {
+      "name": "Webhook: New Agent",
+      "type": "n8n-nodes-base.webhook",
+      "position": [240, 300],
+      "parameters": { "path": "provision-agent", "httpMethod": "POST", "responseMode": "onReceived" }
+    },
+    {
+      "name": "Create OpenClaw Instance",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [460, 300],
+      "parameters": {
+        "url": "={{ $env.OPENCLAW_URL }}/instances",
+        "method": "POST",
+        "body": { "agent_id": "={{ $json.agent_id }}", "name": "={{ $json.name }}", "role": "={{ $json.role }}", "skills": "={{ $json.skills }}", "mcps": "={{ $json.mcps }}" },
+        "headers": { "Authorization": "Bearer {{ $env.OPENCLAW_API_KEY }}" }
+      }
+    },
+    {
+      "name": "Update Agent: Set Instance ID",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [680, 300],
+      "parameters": {
+        "url": "={{ $env.GENII_API_URL }}/api/agents/{{ $('Webhook: New Agent').item.json.agent_id }}",
+        "method": "PATCH",
+        "body": { "openclaw_instance_id": "={{ $json.instance_id }}", "status": "active" }
+      }
+    },
+    {
+      "name": "Post to Slack #fleet-ops",
+      "type": "n8n-nodes-base.slack",
+      "position": [900, 220],
+      "parameters": { "channel": "#fleet-ops", "text": ":rocket: Agent *{{ $('Webhook: New Agent').item.json.name }}* provisioned for {{ $('Webhook: New Agent').item.json.entity_id }}." }
+    }
+  ],
+  "connections": {
+    "Webhook: New Agent": { "main": [["Create OpenClaw Instance"]] },
+    "Create OpenClaw Instance": { "main": [["Update Agent: Set Instance ID"]] },
+    "Update Agent: Set Instance ID": { "main": [["Post to Slack #fleet-ops"]] }
+  },
+  "active": true,
+  "settings": { "errorWorkflow": "WF-Error-Handler" }
+}
